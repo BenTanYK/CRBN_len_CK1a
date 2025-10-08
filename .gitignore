@@ -1,0 +1,4 @@
+# Ignore all .dcd files in any directory and subdirectory
+**/*.dcd
+**/jobs/*.in
+**/*.out
