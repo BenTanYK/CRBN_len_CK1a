@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# Directory storing submission scripts
+submission_dir=$(grep "submission_dir" params.in | awk -F "= " '{print $2}' | xargs)
+
+# Extract CV0 values to submit calculations for
+CV0_values=$(<CV0_vals.list)
+IFS=','  # Set the Internal Field Separator to a comma
+
+# Identify if we 
+run_loc_int=$(grep "run_location" params.in | awk -F "= " '{print $2}' | awk '{print $1}')
+
+# Output the extracted value
+echo $run_loc_int
+
+# Workstation submission
+if [ "$run_loc_int" -eq 0 ]; then 
+    for CV0 in $CV0_values;
+    do
+        CV0=$(echo "$CV0" | xargs) # Trim leading or trailing whitespace
+        
+        # Identify the jobid for reading the parameter file
+        python $submission_dir"/generate_paramfile.py"
+        jobid=$(cat jobid.txt)
+        echo "Parameter input file generate for job "${jobid}
+        rm jobid.txt
+
+        jobname=$CV0
+        outname="${CV0}_${jobid}.out"
+        sbatch -J $jobname  -o "outfiles/"$outname  $submission_dir"/submit_window_workstation.sh" -r $CV0 -j $jobid
+    done
+fi
+
+# Cluster submission
+if [ "$run_loc_int" -eq 1 ]; then 
+    for CV0 in $CV0_values;
+    do
+        CV0=$(echo "$CV0" | xargs) # Trim leading or trailing whitespace
+
+        # Identify the jobid for reading the parameter file
+        python $submission_dir"/generate_paramfile.py"
+        jobid=$(cat jobid.txt)
+        echo "Parameter input file generate for job "${jobid}
+        rm jobid.txt
+
+        jobname=$CV0
+        outname="${CV0}_${jobid}.out"
+        sbatch -J $jobname  -o "outfiles/"$outname  $submission_dir"/submit_window_cluster.sh" -r $CV0 -j $jobid
+    done
+fi
+
+# Eddie submission
+if [ "$run_loc_int" -eq 2 ]; then 
+    for CV0 in $CV0_values;
+    do
+        CV0=$(echo "$CV0" | xargs) # Trim leading or trailing whitespace
+
+        # Identify the jobid for reading the parameter file
+        python $submission_dir"/generate_paramfile.py"
+        jobid=$(cat jobid.txt)
+        echo "Parameter input file generate for job "${jobid}
+        rm jobid.txt
+
+        jobname="CV"$CV0
+        outname="outfiles/CV${$CV0}_${jobid}.out"
+        errname="outfiles/CV${$CV0}_${jobid}.err"
+        qsub -N $jobname -o $outname -e $errname $submission_dir"/submit_window_eddie.sh" -r $CV0 -j $jobid
+    done
+fi

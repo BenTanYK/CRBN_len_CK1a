@@ -1,0 +1,24 @@
+source leaprc.protein.ff19SB
+source leaprc.water.tip3p
+addAtomTypes { { "ZN" "Zn" "sp3" } { "S3" "S" "sp3" } } #Add atom types for the ZAFF metal center with Center ID 1
+loadamberparams frcmod.ions1lm_126_tip3p
+loadamberprep ZAFF.prep #Load ZAFF prep file
+loadamberparams ZAFF.frcmod #Load ZAFF frcmod file
+
+source leaprc.gaff2
+loadAmberParams "len.frcmod"
+protein = loadpdb protein_noH.pdb
+bond protein.313.ZN protein.210.SG
+bond protein.313.ZN protein.213.SG
+bond protein.313.ZN protein.278.SG
+bond protein.313.ZN protein.281.SG 
+ligand = loadMol2 "len.mol2"
+complex = combine {protein ligand}
+check complex
+solvateOct complex TIP3PBOX 15.0
+
+addions complex CL 0
+
+savepdb complex system_solvated.pdb #Save the pdb file
+saveamberparm complex system.prmtop system.inpcrd #Save the topology and coordinate files
+quit #Quit tleap

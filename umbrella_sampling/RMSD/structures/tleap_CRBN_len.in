@@ -1,0 +1,38 @@
+source leaprc.protein.ff19SB
+source leaprc.water.tip3p
+addAtomTypes { { "ZN" "Zn" "sp3" } { "S3" "S" "sp3" } } # Add atom types for the ZAFF metal center
+loadamberparams frcmod.ions1lm_126_tip3p #Load the Li/Merz 12-6 parameter set for monovalent ions
+loadamberprep ZAFF.prep #Load ZAFF prep file
+loadamberparams ZAFF.frcmod #Load ZAFF frcmod file
+
+# Load ligand params
+source leaprc.gaff2
+loadAmberParams "len_eq.frcmod"
+
+# Load protein and bond Zn to relevant CYM residues
+protein = loadpdb CRBN_noH.pdb # Load the PDB file
+
+bond protein.313.ZN protein.210.SG 
+bond protein.313.ZN protein.213.SG 
+bond protein.313.ZN protein.278.SG 
+bond protein.313.ZN protein.281.SG 
+
+# Load the ligand structure
+ligand = loadMol2 "len_eq.mol2"
+
+# Combine protein and ligand into one system
+complex = combine {protein ligand}
+check complex
+
+solvateOct complex TIP3PBOX 15.0
+
+addions complex CL 0
+addions complex NA 0
+
+# Save the parameter and coordinate files
+savePDB complex solvated_CRBN_len.pdb
+saveAmberParm complex CRBN_len.prmtop CRBN_len.inpcrd
+
+quit 
+
+

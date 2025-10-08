@@ -1,0 +1,18 @@
+source leaprc.protein.ff19SB
+source leaprc.water.tip3p
+
+# Load protein and bond Zn to relevant CYM residues
+protein = loadpdb CK1a_noH.pdb # Load the PDB file
+
+solvateOct protein TIP3PBOX 15.0
+
+addions protein CL 0
+addions protein NA 0
+
+# Save the parameter and coordinate files
+savePDB protein solvated_CK1a.pdb
+saveAmberParm protein CK1a.prmtop CK1a.inpcrd
+
+quit 
+
+

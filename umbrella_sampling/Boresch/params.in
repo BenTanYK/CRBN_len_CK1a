@@ -1,0 +1,19 @@
+"""Run parameters"""
+run_number = 3
+run_location = 0 # workstation=0, cluster=1, eddie=2
+dof = phiA # phiA, thetaB, phiA, phiB, phiC
+
+"""MD parameters"""
+timestep = 4 # fs
+save_traj = False # True or False
+equilibration_time = 1 # ns
+sampling_time = 5 # ns
+n_steps_between_sampling = 125 
+
+"""Restraint parameters"""
+RMSD_restraint = backbone # heavy_atom, backbone, CA
+k_RMSD = 30 # kcal/mol AA^-2
+k_Boresch = 100 # kcal/mol rad^-2
+
+"""Submission script directory""" # Specify directory where slurm/grid engine submission scripts are stored
+submission_dir = ../../scripts

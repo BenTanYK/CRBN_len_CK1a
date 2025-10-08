@@ -1,0 +1,18 @@
+"""Run parameters"""
+run_number = 3
+run_location = 0 # workstation=0, cluster=1, eddie=2
+species = CK1a # Options are CRBN, CK1a, CRBN_only, CK1a_only, CRBNwithCK1a, CK1awithCRBN
+
+"""MD parameters"""
+timestep = 4 # fs
+save_traj = True # True or False
+equilibration_time = 0 # ns
+sampling_time = 20 # ns
+n_steps_between_sampling = 125 
+
+"""Restraint parameters"""
+RMSD_restraint = backbone # heavy_atom, backbone, CA
+k_RMSD = 30 # kcal/mol AA^-2
+
+"""Submission script directory""" # Specify directory where slurm/grid engine submission scripts are stored
+submission_dir = ../../scripts

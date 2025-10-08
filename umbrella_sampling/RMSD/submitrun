@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Directory storing submission scripts
+submission_dir=$(grep "submission_dir" params.in | awk -F "= " '{print $2}' | xargs)
+
+# Extract RMSD0 values to submit calculations for
+RMSD0_values=$(<RMSD0_vals.list)
+IFS=','  # Set the Internal Field Separator to a comma
+
+# Identify if we are running on the workstation, cluster or eddie
+run_loc_int=$(grep "run_location" params.in | awk -F "= " '{print $2}' | awk '{print $1}')
+
+
+# Workstation submission
+if [ "$run_loc_int" -eq 0 ]; then 
+    for RMSD0 in $RMSD0_values;
+    do
+        RMSD0=$(echo "$RMSD0" | xargs) # Trim leading or trailing whitespace
+
+        # Identify the jobid for reading the parameter file
+        python $submission_dir"/generate_paramfile.py"
+        jobid=$(cat jobid.txt)
+        echo "Parameter input file generate for job "${jobid}
+        rm jobid.txt
+
+        jobname=$RMSD0
+        outname="${RMSD0}_${jobid}.out"
+        sbatch -J $jobname -o "outfiles/"$outname  $submission_dir"/submit_window_workstation.sh" -r $RMSD0 -j $jobid
+    done
+fi
+
+# Cluster submission
+if [ "$run_loc_int" -eq 1 ]; then 
+    for RMSD0 in $RMSD0_values;
+    do
+        RMSD0=$(echo "$RMSD0" | xargs) # Trim leading or trailing whitespace
+
+        # Identify the jobid for reading the parameter file
+        python3 $submission_dir"/generate_paramfile.py"
+        jobid=$(cat jobid.txt)
+        echo "Parameter input file generate for job "${jobid}
+        rm jobid.txt
+
+        jobname=$RMSD0
+        outname="${RMSD0}_${jobid}.out"
+        sbatch -J $jobname -o "outfiles/"$outname  $submission_dir"/submit_window_cluster.sh" -r $RMSD0 -j $jobid
+    done
+fi
+
+# Eddie submission
+if [ "$run_loc_int" -eq 2 ]; then 
+    for RMSD0 in $RMSD0_values;
+    do
+        RMSD0=$(echo "$RMSD0" | xargs) # Trim leading or trailing whitespace
+        
+        # Identify the jobid for reading the parameter file
+        python $submission_dir"/generate_paramfile.py"
+        jobid=$(cat jobid.txt)
+        echo "Parameter input file generate for job "${jobid}
+        rm jobid.txt
+
+        jobname="rmsd"$RMSD0
+        outname="outfiles/CV${$RMSD0}_${jobid}.out"
+        errname="outfiles/CV${$RMSD0}_${jobid}.err"
+        qsub -N $jobname -o $outname -e $errname $submission_dir"/submit_window_eddie.sh" -r $RMSD0 -j $jobid
+    done
+fi
