@@ -1,7 +1,7 @@
 """Run parameters"""
 run_number = 3
 run_location = 0 # workstation=0, cluster=1, eddie=2
-dof = phiA # phiA, thetaB, phiA, phiB, phiC
+dof = phiB # phiA, thetaB, phiA, phiB, phiC
 
 """MD parameters"""
 timestep = 4 # fs

@@ -1,11 +1,11 @@
 """Run parameters"""
 run_number = 3
 run_location = 0 # workstation=0, cluster=1, eddie=2
-species = CK1a # Options are CRBN, CK1a, CRBN_only, CK1a_only, CRBNwithCK1a, CK1awithCRBN
+species = CRBN_lenwithCK1a # Options are CRBN_len, CK1a, CRBN_len_only, CK1a_only, CRBN_lenwithCK1a, CK1awithCRBN_len
 
 """MD parameters"""
 timestep = 4 # fs
-save_traj = True # True or False
+save_traj = False # True or False
 equilibration_time = 0 # ns
 sampling_time = 20 # ns
 n_steps_between_sampling = 125 

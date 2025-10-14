@@ -1,0 +1,10 @@
+/home/btan/Documents/CRBN_len_CK1a/umbrella_sampling/RMSD/results/backbone_RMSD/CRBN_lenwithCK1a/run1/RED/0.0.txt 0.0 3000
+/home/btan/Documents/CRBN_len_CK1a/umbrella_sampling/RMSD/results/backbone_RMSD/CRBN_lenwithCK1a/run1/RED/0.4.txt 0.04 3000
+/home/btan/Documents/CRBN_len_CK1a/umbrella_sampling/RMSD/results/backbone_RMSD/CRBN_lenwithCK1a/run1/RED/0.8.txt 0.08 3000
+/home/btan/Documents/CRBN_len_CK1a/umbrella_sampling/RMSD/results/backbone_RMSD/CRBN_lenwithCK1a/run1/RED/1.2.txt 0.12 3000
+/home/btan/Documents/CRBN_len_CK1a/umbrella_sampling/RMSD/results/backbone_RMSD/CRBN_lenwithCK1a/run1/RED/1.6.txt 0.16 3000
+/home/btan/Documents/CRBN_len_CK1a/umbrella_sampling/RMSD/results/backbone_RMSD/CRBN_lenwithCK1a/run1/RED/2.0.txt 0.2 3000
+/home/btan/Documents/CRBN_len_CK1a/umbrella_sampling/RMSD/results/backbone_RMSD/CRBN_lenwithCK1a/run1/RED/2.4.txt 0.24 3000
+/home/btan/Documents/CRBN_len_CK1a/umbrella_sampling/RMSD/results/backbone_RMSD/CRBN_lenwithCK1a/run1/RED/2.8.txt 0.28 3000
+/home/btan/Documents/CRBN_len_CK1a/umbrella_sampling/RMSD/results/backbone_RMSD/CRBN_lenwithCK1a/run1/RED/3.2.txt 0.32 3000
+/home/btan/Documents/CRBN_len_CK1a/umbrella_sampling/RMSD/results/backbone_RMSD/CRBN_lenwithCK1a/run1/RED/3.6.txt 0.36 3000
