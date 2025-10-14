@@ -1,6 +1,6 @@
-# CK1a-CRBN binding free energy
+# CK1a-lenalidomide-=CRBN binding free energy
 
-This repository contains a collection of scripts for calculating the binding free energy of the CK1a-CRBN complex. The methodology is based on the geometric route of [Woo and Roux ](https://www.pnas.org/doi/10.1073/pnas.0409005102), with [Boresch-style restraints](https://pubs.acs.org/doi/10.1021/jp0217839) being used to restrain the relative orientation of the two proteins, as per the framework of [Notari *et al*](https://pubs.acs.org/doi/10.1021/acs.jctc.4c01695). Umbrella Sampling (US) simulations are used to calculate the Potential of Mean Force (PMF) curves corresponding to each stage of the binding/unbinding process. The MD engine used for all simulations is [OpenMM](https://openmm.org/).
+This repository contains a collection of scripts for calculating the binding free energy of the CK1a-lenalidomide-CRBN complex. The methodology is based on the geometric route of [Woo and Roux ](https://www.pnas.org/doi/10.1073/pnas.0409005102), with [Boresch-style restraints](https://pubs.acs.org/doi/10.1021/jp0217839) being used to restrain the relative orientation of the two proteins, as per the framework of [Notari *et al*](https://pubs.acs.org/doi/10.1021/acs.jctc.4c01695). Umbrella Sampling (US) simulations are used to calculate the Potential of Mean Force (PMF) curves corresponding to each stage of the binding/unbinding process. The MD engine used for all simulations is [OpenMM](https://openmm.org/).
 
 The protocol follows three main stages: 
 
