@@ -1,14 +1,16 @@
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import MDAnalysis as mda
 from MDAnalysis.analysis import rms, align
 from MDAnalysis.analysis.distances import dist
-from tqdm import tqdm
-
+from MDAnalysis.transformations.nojump import NoJump
 
 def obtain_RMSD(run_number, res_range=[0,606], eq=False):
     u = mda.Universe('structures/complex.prmtop', f'results/run{run_number}/traj.dcd')
+    
+    # Centre trajectory to avoid jumps
+    transformation = NoJump()
+    u.trajectory.add_transformations(transformation)
+    
     protein = u.select_atoms("protein")
 
     if eq==True:
@@ -46,6 +48,10 @@ def save_RMSD(run_number, res_range=[0,606]):
 def obtain_RMSF(run_number, res_range=[0,606]):
     u = mda.Universe('structures/complex.prmtop', f'results/run{run_number}/traj.dcd')
     
+    # Centre trajectory to avoid jumps
+    transformation = NoJump()
+    u.trajectory.add_transformations(transformation)
+
     start, end = int(res_range[0]), int(res_range[1])
 
     alignment_selection = f'protein and name CA and resid {start}-{end}'
@@ -91,7 +97,7 @@ def run_analysis(systems, k_values):
                 print(f"\nGenerating RMSF for {system}, run {n_run}, with k={k_DDB1} kcal/mol AA^-2\n")
                 save_RMSF(system, k_DDB1, n_run)
 
-for n_run in [1,2,3]:
+for n_run in [3]:
     # complex
     print(f"\nGenerating RMSD for run {n_run}")
     save_RMSD(n_run)
